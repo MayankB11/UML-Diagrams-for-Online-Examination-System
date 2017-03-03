@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+actor User
+actor Admin
+rectangle "Online Examination System"{
+usecase UL as "User Login"
+usecase AL as "Admin Login"
+usecase US as "User Session"
+usecase AS as "Admin Session"
+usecase Register
+usecase UI as "User Information"
+usecase AI as "Admin Information"
+User - (UL) 
+(UL) <.. (Login Error) : << exclude >>
+User -- (Register) 
+Admin -- Register
+(US) ..> (UI) : << include >>
+(UI) <|-- (View User Information)
+(UI) <|-- (Modify User Information)
+(UL) ..> (US) : << include >>
+(US) ..> (User Subjects) : << include >>
+(User Subjects) <|-- (Select Subject)
+(User Subjects) ..> (Give Test) : << include >>
+Admin -- (AL)
+(AL) <.. (Login Error) : << exclude >>
+(AL) ..> (AS) : << include >>
+(AS) ..> (AI) : <<include >>
+(AS) ..> (Statistics) : << include >>
+(Statistics) <|-- (View Statistics)
+(Statistics) <|-- (Clear Statistics)
+(AS) ..> (Admin Subjects) : << include >>
+(Admin Subjects) <|-- (Modify Subjects)
+(Modify Subjects) ..> (Modify Questions) : << include >>
+(Admin Subjects) <|-- (View Subjects)
+(AI) <|-- (View Admin Information)
+(AI) <|-- (Modify Admin Information)
+}
+@enduml
+
